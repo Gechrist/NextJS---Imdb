@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+
+  html {
+    @apply bg-gray-background;
+    @apply text-white;
+    @apply text-xs;
+    @apply md:text-base;
+    @apply 3xl:text-3xl;
+    @apply font-app;
+  }
+} 
+
+@layer utilities {
+  .flex-basis-25{
+    flex-basis:25%
+  }
+  .flex-basis-65{
+    flex-basis:65%
+  }
+}

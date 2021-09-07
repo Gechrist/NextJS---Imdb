@@ -5,7 +5,8 @@ import { useEmblaCarousel } from 'embla-carousel/react'
 const AUTOPLAY_INTERVAL = 3500;
 
 const EmblaCarousel = ({children, direction, position}) => {
-  const [viewportRef, embla, emblaApi] = useEmblaCarousel(direction?{skipSnaps:false, axis:'y',align:'start'}:{skipSnaps:false,align:'start'});
+  const [viewportRef, embla, emblaApi] = useEmblaCarousel(direction?{skipSnaps:false, axis:'y',align:'start'}:
+  {skipSnaps:false,align:'start'});
   const [directionStyle, setDirectionStyle] = useState('')
   const [positionStyle, setPositionStyle] = useState('')
   

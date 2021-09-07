@@ -9,15 +9,15 @@ import EmblaCarousel from '../../components/Carousel';
 import MetaTitle from '../../components/MetaTitle';
 import getData from '../../helpers/ApiQueries';
 
-const API_OPTIONS = process.env.NEXT_PUBLIC_TMDB_API_OPTIONS_NAME
+const API_OPTIONS = process.env.NEXT_PUBLIC_TMDB_API_OPTIONS
 
-const Name = ({data,role}) => {
+const Name = ({data,role, error}) => {
     const [isShowImages,setIsShowImages] = useState(false);
     const [isShowInfo,setIsShowInfo] = useState(false);
     const [isShowFilmography,setIsShowFilmography] = useState(false);
 
     return (
-        data.success === false?<ErrorMessage/>: 
+        error || !data || data.success === false?<ErrorMessage/>: 
         <main className="lg:ml-menu lg:w-main w-full flex flex-col pt-6 px-2 lg:px-10">
           {data?.title?<MetaTitle title={`${data?.title}`}/>:<MetaTitle title={`${data?.name}`}/>}
           <div className="flex flex-row w-full h-80 xl:h-96">
@@ -35,19 +35,19 @@ const Name = ({data,role}) => {
             <Poster path={data?.profile_path}/>
           </div>
           <div className="relative">
-          <nav className={`flex flex-row justify-between w-full mt-28 md:mt-20 lg:mt-26 h-auto divide-x 
+          <nav className={`flex flex-row justify-between w-full buttonMenuPos h-auto divide-x 
           divide-white border-2 border-white`}>
             {data?.images.profiles && <button type="button" onClick={() =>{setIsShowImages(previsShowImages => !previsShowImages);
             setIsShowInfo(false); setIsShowFilmography(false)}} className="bg-transparent w-full active:bg-white 
             active:text-black hover:font-bold p-2 text-white">Images</button>}
             <button type="button" onClick={() =>{setIsShowInfo(previsShowInfo => !previsShowInfo);
-            setIsShowImages(false);setIsShowFilmography(false)}} className="bg-transparent w-full  active:bg-white 
+            setIsShowImages(false);setIsShowFilmography(false)}} className="bg-transparent w-full active:bg-white 
             active:text-black hover:font-bold p-2 text-white">Info</button>
-            <button className="bg-transparent w-full  active:bg-white active:text-black hover:font-bold 
+            <button className="bg-transparent w-full active:bg-white active:text-black hover:font-bold 
             p-2 text-white" type="button" onClick={() =>{setIsShowFilmography(previsShowFilmography => !previsShowFilmography);
-            setIsShowImages(false);setIsShowInfo(false)}}>Filmography</button>
+            setIsShowImages(false);setIsShowInfo(false)}}>Credits</button>
           </nav>
-          {isShowImages? data?.images.profiles? <EmblaCarousel direction='' position='absolute bottom-12 md:bottom-14 xl:bottom-18 2xl:bottom-26'> 
+          {isShowImages? data?.images.profiles.length>1? <EmblaCarousel direction='' position='absolute bottom-12 md:bottom-14'> 
           {data?.images.profiles.slice(0,6).map((item,index) => ( 
                 <div key={index} className="embla__slide relative flex-grow-0 flex-shrink-0 flex-basis-65 md:flex-basis-25">
                 <Image  src={`https://image.tmdb.org/t/p/w1280${item?.file_path}`} 
@@ -71,7 +71,9 @@ Name.getLayout = function getLayout(page) {
 
 export  async function getServerSideProps({params}) {
     let data = await getData("person",`${params.id}`,API_OPTIONS);
+    if (data.error) return ({error})
     let role = await getData("Name",`${data.imdb_id}`);
+    if (role.error) return ({error})
   return { props: {data,role}}
   }
 

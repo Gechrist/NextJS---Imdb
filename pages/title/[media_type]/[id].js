@@ -1,4 +1,4 @@
-import {React,useState,useEffect} from 'react';
+import {React,useState} from 'react';
 import Info from '../../../components/Info';
 import Video from '../../../components/title/Video';
 import Layout from '../../../components/Layout';
@@ -9,9 +9,9 @@ import ErrorMessage from '../../../components/ErrorMessage';
 import MetaTitle from '../../../components/MetaTitle'
 import Link from 'next/link'
 
-const API_OPTIONS = process.env.NEXT_PUBLIC_TMDB_API_OPTIONS_TITLE
+const API_OPTIONS = process.env.NEXT_PUBLIC_TMDB_API_OPTIONS
 
-const Title = ( data ) => {
+const Title = ({data,error}) => {
   const [isShowInfo,setIsShowInfo] = useState(false);
   const [isShowVideo,setIsShowVideo] = useState(false);
   const [isShowCast,setIsShowCast] = useState(false);
@@ -23,9 +23,10 @@ const Title = ( data ) => {
   var rating = certifications?.filter(item => item.iso_3166_1 === "US")[0]?.release_dates[0]?.certification;
   var director = mainCrew?.filter(item => item.job==="Director")[0]?.name;
   var directorID = mainCrew?.filter(item => item.job==="Director")[0]?.id;
-console.log(data)
-     return(
-      data.success === false?<ErrorMessage/>: 
+  var documentary = genres?.filter(item => item.name ==="Documentary");
+
+  return(
+     error || !data || data.success === false?<ErrorMessage/>: 
         <div className="lg:ml-menu lg:w-main w-full flex flex-col pt-6 px-2 lg:px-10">
           {data?.title?<MetaTitle title={data?.title}/>:<MetaTitle title={data?.name}/>}
           <div className="flex flex-row w-full h-80 xl:h-96">
@@ -34,7 +35,7 @@ console.log(data)
                 <div className="flex flex-col">
                 <div className="flex flex-row pt-3">
                   {data?.status === 'Planned' && data?.status}       
-                  {data?.release_date?<p> Movie{data?.release_date && `\xa0·\xa0${data?.release_date?.substring(0,4)}`}{data?.runtime>60 && 
+                  {data?.release_date?<p>{documentary.length?`TV`:`Movie`}{data?.release_date && `\xa0·\xa0${data?.release_date?.substring(0,4)}`}{data?.runtime>60 && 
                   `\xa0·\xa0${Math.trunc(data?.runtime/60)}h`} 
                   {data?.runtime? data?.runtime>60? `\xa0${data?.runtime%60}min`:`\xa0·\xa0${data?.runtime}min`:null}</p>:data?.first_air_date? 
                   <p>TV Series{data?.first_air_date && `\xa0·\xa0${data?.first_air_date?.substring(0,4)}`}
@@ -51,7 +52,7 @@ console.log(data)
                   href={`/name/${item.id}`} passHref><p className='hover:font-bold hover:cursor-pointer'>{item.name}
                   {index!==(mainCast?.length -1)?',\xa0':null}</p></Link>)}</div>
                   <div className="flex flex-row flex-wrap">{data?.release_date && <p>Directed by:</p>} 
-                  {data?.release_date && !director?"-":<Link href={`/name/${directorID}`} passHref>
+                  {data?.release_date && !director?"\xa0-":<Link href={`/name/${directorID}`} passHref>
                   <p className='hover:font-bold hover:cursor-pointer'>&nbsp;{director}</p></Link>}
                   </div>
                   <div className="flex flex-row flex-wrap">{data?.first_air_date && <p>Created by:&nbsp;</p>} 
@@ -69,7 +70,7 @@ console.log(data)
             </section>
             <Poster  path={data?.poster_path} />
           </div>
-          <nav className={`flex flex-row justify-between w-full mt-28 md:mt-20 lg:mt-26 h-auto divide-x divide-white border-2
+          <nav className={`flex flex-row justify-between w-full buttonMenuPos h-auto divide-x divide-white border-2
            border-white`}>
             <button type="button" onClick={() =>{setIsShowVideo(previsShowVideo => !previsShowVideo);setIsShowInfo(false); 
             setIsShowCast(false)}} className="bg-transparent w-full active:bg-white active:text-black hover:font-bold p-2
@@ -79,7 +80,7 @@ console.log(data)
              text-white">Info</button>
             <button className="bg-transparent w-full  active:bg-white active:text-black hover:font-bold p-2 text-white"
              type="button" onClick={() =>{setIsShowCast(previsShowCast => !previsShowCast); setIsShowVideo(false);
-             setIsShowInfo(false)}}>Cast</button>
+             setIsShowInfo(false)}}>Cast & Crew</button>
           </nav>
           <div className="relative">
           {isShowVideo?<Video videos={data?.videos?.results}/>:
@@ -100,7 +101,8 @@ console.log(data)
 
   export  async function getServerSideProps({params}) {
     let data = await getData(`${params.media_type}`,`${params.id}`,API_OPTIONS);
-  return { props: data}
+    if (data.error) return ({error})
+  return { props: {data}}
   }
   
   export default Title

@@ -1,24 +1,24 @@
-import styles from '../styles/Home.module.css'
 import getData from '../helpers/ApiQueries';
 import EmblaCarousel from '../components/Carousel';
 import Poster from '../components/Poster';
+import ErrorMessage from '../components/ErrorMessage';
 import Layout from '../components/IndexLayout';
 import MetaTitle from '../components/MetaTitle';
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-const API_OPTIONS_BOX = process.env.NEXT_PUBLIC_TMDB_API_OPTIONS_LINK
-const API_OPTIONS_POP = process.env.NEXT_PUBLIC_TMDB_API_OPTIONS_POP
+const API_OPTIONS = process.env.NEXT_PUBLIC_TMDB_API_OPTIONS
 
 const Home=({boxOffice,popMovies,popTVSeries,popActors}) => {
   const Router = useRouter()
 
   async function getLink (id) {
-    let link = await getData('find', `${id}`, API_OPTIONS_BOX);
+    let link = await getData('find', `${id}`, API_OPTIONS);
     Router.push(`/title/movie/${link.movie_results[0].id}`)
   }
   return (
+    !boxOffice || !popMovies || !popTVSeries || !popActors?<ErrorMessage/>: 
     <div className="lg:ml-menu lg:w-main w-full flex flex-col pt-6 px-2 lg:px-10 overflow-y-auto">
       <MetaTitle title=''/>
       <section className="flex w-full flex-col space-y-4 xl:space-y-2">
@@ -56,7 +56,7 @@ const Home=({boxOffice,popMovies,popTVSeries,popActors}) => {
       </section>
       <section className="flex w-full flex-col pt-24 mb-4 space-y-4 xl:space-y-2">
         <h1 className="text-2xl md:text-3xl 3xl:text-5xl" id='popTVSeries'>
-            Popular TV Series
+            Popular TV Shows
         </h1>
         {popTVSeries? <EmblaCarousel direction ='' position =''> {popTVSeries?.results.map((item,index) => (
           <div key={index} className='mx-1 py-4'>
@@ -69,7 +69,7 @@ const Home=({boxOffice,popMovies,popTVSeries,popActors}) => {
                 <div className='py-2 text-center w-full rounded-b-lg text-black bg-yellow-300 overflow-auto'>
                   {item?.name}
                 </div>    
-              </div></Link></div>))}</EmblaCarousel>:<p>Popular TV Series Not Available</p>}
+              </div></Link></div>))}</EmblaCarousel>:<p>Popular TV Shows Not Available</p>}
       </section>
       <section className="flex w-full flex-col py-24 mb-4 space-y-4 xl:space-y-2">
         <h1 className="text-2xl md:text-3xl 3xl:text-5xl" id='popActors'>
@@ -102,9 +102,13 @@ Home.getLayout = function getLayout(page) {
 
 export async function getServerSideProps() {
   let boxOffice = await getData("boxOffice");
-  let popMovies = await getData("movie/popular",'',API_OPTIONS_POP);
-  let popTVSeries = await getData("tv/popular",'',API_OPTIONS_POP);
-  let popActors = await getData("person/popular",'',API_OPTIONS_POP);
+  if (boxOffice.error) return ({error})
+  let popMovies = await getData("movie/popular",'',API_OPTIONS);
+  if (popMovies.error) return ({error})
+  let popTVSeries = await getData("tv/popular",'',API_OPTIONS);
+  if (popTVSeries.error) return ({error})
+  let popActors = await getData("person/popular",'',API_OPTIONS);
+  if (popActors.error) return ({error})
 return { props: {boxOffice,popMovies,popTVSeries,popActors}}
 }
 

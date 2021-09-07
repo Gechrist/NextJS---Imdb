@@ -8,7 +8,7 @@ import {useTransition, animated} from "@react-spring/web"
 import getData from "../helpers/ApiQueries"
 import LoadingIndicator from '../helpers/LoadingIndicator'
 
-const API_OPTIONS = process.env.NEXT_PUBLIC_TMDB_API_OPTIONS_FIND
+const API_OPTIONS = process.env.NEXT_PUBLIC_TMDB_API_OPTIONS
 
 const Header = () => {
   const [isSearchInputOn, setIsSearchInputOn] = useState(false);
@@ -32,7 +32,7 @@ const Header = () => {
           let response = await getData("search/multi",searchTerms,API_OPTIONS);
           response.results?.length === 0?setNotFoundMessage(true):setSearchResults(searchResults => response.results);
           setIsSearchResultsMenuOn(true);
-          response?.success===false || response?.errors && setErrorMessage(errorMessage => true);
+          response?.success === false || response?.errors && setErrorMessage(errorMessage => true);
         }
     const delaySearch = setTimeout(() => {
       searchTerms && searchData()
@@ -70,7 +70,7 @@ const Header = () => {
                   <Link href='/#popMovies'><a className="text-black xs:border-b xs:border-black xs:border-opacity-20 hover:font-bold
                    whitespace-nowrap">Popular Movies</a></Link>
                   <Link href='/#popTVSeries'><a className="text-black xs:border-b xs:border-black xs:border-opacity-20 hover:font-bold 
-                  whitespace-nowrap">Popular TV Series</a></Link>
+                  whitespace-nowrap">Popular TV Shows</a></Link>
                   <Link href='/#popActors'><a className="text-black xs:border-b xs:border-black xs:border-opacity-20 hover:font-bold 
                   whitespace-nowrap">Popular Actors</a></Link>
                   <Link href='/about' passHref><a className="text-black  xs:border-b xs:border-black xs:border-opacity-20 hover:font-bold">About</a></Link>

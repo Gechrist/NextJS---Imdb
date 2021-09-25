@@ -11,13 +11,13 @@ import getData from '../../helpers/ApiQueries';
 
 const API_OPTIONS = process.env.NEXT_PUBLIC_TMDB_API_OPTIONS
 
-const Name = ({data,role, error}) => {
+const Name = ({data,role}) => {
     const [isShowImages,setIsShowImages] = useState(false);
     const [isShowInfo,setIsShowInfo] = useState(false);
-    const [isShowFilmography,setIsShowFilmography] = useState(false);
+    const [isShowFilmography,setIsShowFilmography] = useState(false); 
 
     return (
-        error || !data || data.success === false?<ErrorMessage/>: 
+        data.error || role.error || !data || data.success === false?<ErrorMessage/>: 
         <main className="lg:ml-menu lg:w-main w-full flex flex-col pt-6 px-2 lg:px-10">
           {data?.title?<MetaTitle title={`${data?.title}`}/>:<MetaTitle title={`${data?.name}`}/>}
           <div className="flex flex-row w-full h-80 xl:h-96">
@@ -47,7 +47,7 @@ const Name = ({data,role, error}) => {
             p-2 text-white" type="button" onClick={() =>{setIsShowFilmography(previsShowFilmography => !previsShowFilmography);
             setIsShowImages(false);setIsShowInfo(false)}}>Credits</button>
           </nav>
-          {isShowImages? data?.images.profiles.length>1? <EmblaCarousel direction='' position='absolute bottom-12 md:bottom-14'> 
+          {isShowImages? data?.images.profiles.length>1? <EmblaCarousel haveAutoplay={false} direction='' position='absolute bottom-12 md:bottom-14'> 
           {data?.images.profiles.slice(0,6).map((item,index) => ( 
                 <div key={index} className="embla__slide relative flex-grow-0 flex-shrink-0 flex-basis-65 md:flex-basis-25">
                 <Image  src={`https://image.tmdb.org/t/p/w1280${item?.file_path}`} 
@@ -71,9 +71,9 @@ Name.getLayout = function getLayout(page) {
 
 export  async function getServerSideProps({params}) {
     let data = await getData("person",`${params.id}`,API_OPTIONS);
-    if (data.error) return ({error})
+    if (data.error) data.error=true
     let role = await getData("Name",`${data.imdb_id}`);
-    if (role.error) return ({error})
+    if (role.error) role.error=true
   return { props: {data,role}}
   }
 

@@ -11,7 +11,7 @@ import Link from 'next/link'
 
 const API_OPTIONS = process.env.NEXT_PUBLIC_TMDB_API_OPTIONS
 
-const Title = ({data,error}) => {
+const Title = (data) => {
   const [isShowInfo,setIsShowInfo] = useState(false);
   const [isShowVideo,setIsShowVideo] = useState(false);
   const [isShowCast,setIsShowCast] = useState(false);
@@ -24,9 +24,8 @@ const Title = ({data,error}) => {
   var director = mainCrew?.filter(item => item.job==="Director")[0]?.name;
   var directorID = mainCrew?.filter(item => item.job==="Director")[0]?.id;
   var documentary = genres?.filter(item => item.name ==="Documentary");
-
   return(
-     error || !data || data.success === false?<ErrorMessage/>: 
+     data.error || !data || data.success === false?<ErrorMessage/>: 
         <div className="lg:ml-menu lg:w-main w-full flex flex-col pt-6 px-2 lg:px-10">
           {data?.title?<MetaTitle title={data?.title}/>:<MetaTitle title={data?.name}/>}
           <div className="flex flex-row w-full h-80 xl:h-96">
@@ -101,8 +100,8 @@ const Title = ({data,error}) => {
 
   export  async function getServerSideProps({params}) {
     let data = await getData(`${params.media_type}`,`${params.id}`,API_OPTIONS);
-    if (data.error) return ({error})
-  return { props: {data}}
+    if (data.error) data.error=true
+  return { props: data}
   }
   
   export default Title

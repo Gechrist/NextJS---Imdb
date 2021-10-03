@@ -1,7 +1,6 @@
 import getData from '../helpers/ApiQueries';
 import EmblaCarousel from '../components/Carousel';
 import Poster from '../components/Poster';
-import ErrorMessage from '../components/ErrorMessage';
 import Layout from '../components/IndexLayout';
 import MetaTitle from '../components/MetaTitle';
 import Image from 'next/image'

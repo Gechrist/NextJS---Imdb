@@ -1,5 +1,8 @@
+
+# IMDB NEXT.JS App
+
 ## OVERVIEW
-This is an IMDB like web app built with [Next.JS] (https://nextjs.org/) and TailwindCSS (https://tailwindcss.com/) and deployed on [Vercel](https://next-js-imdb.vercel.app). The data in use is provided thanks to APIs from [TMDB] (http://developers.themoviedb.org) and [imdb-api.com] (https://imdb-api.com). The pages are server side rendered.
+This is an IMDB like web app built with [Next.JS](https://nextjs.org/) and [TailwindCSS](https://tailwindcss.com/) and deployed with [Vercel](https://next-js-imdb.vercel.app). The data in use is provided thanks to APIs from [TMDB](http://developers.themoviedb.org) and [imdb-api.com](https://imdb-api.com). The pages are server side rendered.
 
 ## FEATURES
 - Top 10 movies in the Box Office.
@@ -19,3 +22,8 @@ npm run dev
 
 ```
 Open http://localhost:3000 with your browser to see the result.
+
+## AUTHOR
+
+- [Profile](https://github.com/Gechrist/NextJS-Imdb "George Christodoulou")
+- [Email](mailto:gchris@hotmail.co.uk)

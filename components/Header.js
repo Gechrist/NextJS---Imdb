@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import Image from 'next/image'
 import {useRouter} from 'next/router'
 import Link from 'next/link'
@@ -20,7 +19,7 @@ const Header = () => {
   const [errorMessage, setErrorMessage] = useState(false);
 
   const mobileMenu = () => {isMobileMenu === 'hidden'?setIsMobileMenu('xs:top-0 xs:right-0 xs:w-72 xs:h-mobile'):setIsMobileMenu('hidden')}
-  const animationSearch = useTransition(isSearchInputOn, { enter:  {transform:`translateX(${0}%)`}, from: {transform:`translateX(${100}%)`}})
+  const animationSearch = useTransition(isSearchInputOn, { enter:  {transform:`translateX(${0}%)`}, from: {transform:`translateX(${20}%)`}})
   const dynamicRoute = useRouter().asPath
 
   useEffect(() => {
@@ -94,8 +93,8 @@ const Header = () => {
               </header>
                 <div className="flex flex-col place-items-center lg:ml-menu pt-4 z-45">
                   {animationSearch((styles, item) => item && <animated.div style={styles}><input autoFocus={true} onChange={(e) => 
-                  {setSearchTerms(e.target.value)}} value={searchTerms} className="shadow appearance-none border  border-yellow-300 rounded 
-                  py-2 px-3 text-gray-700 w-72 leading-tight focus:outline-none focus:shadow-outline z-45" type="text" placeholder="Search..."/>
+                  {setSearchTerms(e.target.value)}} value={searchTerms} className="shadow appearance-none border border-yellow-300 rounded 
+                   py-2 px-3 text-gray-700 w-72 leading-tight focus:outline-none focus:shadow-outline z-45" type="text" placeholder="Search..."/>
                   </animated.div>)}
                   <div className="flex absolute top-40 lg:top-20 w-12 sm:w-16 md:w-20 lg:w-auto h-auto rounded justify-center z-40 
                   bg-transparent"><LoadingIndicator/></div>

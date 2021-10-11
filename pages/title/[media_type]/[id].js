@@ -24,6 +24,7 @@ const Title = (data) => {
   var director = mainCrew?.filter(item => item.job==="Director")[0]?.name;
   var directorID = mainCrew?.filter(item => item.job==="Director")[0]?.id;
   var documentary = genres?.filter(item => item.name ==="Documentary");
+
   return(
      data.error || !data || data.success === false?<ErrorMessage/>: 
         <div className="lg:ml-menu lg:w-main w-full flex flex-col pt-6 px-2 lg:px-10">
@@ -52,10 +53,10 @@ const Title = (data) => {
                   {index!==(mainCast?.length -1)?',\xa0':null}</p></Link>)}</div>
                   <div className="flex flex-row flex-wrap">{data?.release_date && <p>Directed by:</p>} 
                   {data?.release_date && !director?"\xa0-":<Link href={`/name/${directorID}`} passHref>
-                  <p className='hover:font-bold hover:cursor-pointer'>&nbsp;{director}</p></Link>}
+                  <p className='hover:font-bold hover:cursor-pointer'>&nbsp;{!data?.first_air_date && director}</p></Link>}
                   </div>
                   <div className="flex flex-row flex-wrap">{data?.first_air_date && <p>Created by:&nbsp;</p>} 
-                  {data?.first_air_date&&data?.created_by.length>0 && data?.created_by.map((item,index)=><Link key={index}
+                  {data?.first_air_date && data?.created_by.length>0 && data?.created_by.map((item,index)=><Link key={index}
                   href={`/name/${item.id}`} passHref><p className='hover:font-bold hover:cursor-pointer'>{item.name}
                   {index!==(data?.created_by.length -1)?',\xa0':null}</p></Link>)}
                   </div>

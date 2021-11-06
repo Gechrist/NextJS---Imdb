@@ -9,6 +9,7 @@ import ErrorMessage from '../../../components/ErrorMessage';
 import MetaTitle from '../../../components/MetaTitle'
 import Link from 'next/link'
 
+
 const API_OPTIONS = process.env.NEXT_PUBLIC_TMDB_API_OPTIONS
 
 const Title = (data) => {
@@ -36,11 +37,13 @@ const Title = (data) => {
                 <div className="flex flex-row pt-3">
                   {data?.status === 'Planned' && data?.status}       
                   {data?.release_date?<p>{documentary.length?`TV`:`Movie`}{data?.release_date && `\xa0·\xa0${data?.release_date?.substring(0,4)}`}{data?.runtime>60 && 
-                  `\xa0·\xa0${Math.trunc(data?.runtime/60)}h`} 
+                  `\xa0·\xa0${Math.trunc(data?.runtime/60)}h`}
                   {data?.runtime? data?.runtime>60? `\xa0${data?.runtime%60}min`:`\xa0·\xa0${data?.runtime}min`:null}</p>:data?.first_air_date? 
-                  <p>TV Series{data?.first_air_date && `\xa0·\xa0${data?.first_air_date?.substring(0,4)}`}
-                  {data?.episode_run_time>60 && `\xa0·\xa0${Math.trunc(data?.episode_run_time/60)}h`} 
-                  {data?.episode_run_time ? data?.episode_run_time>60? `\xa0${data?.episode_run_time%60}min`:`\xa0·\xa0${data?.episode_run_time}min`:null}
+                  <p>TV Series{data?.first_air_date && `\xa0·\xa0${data?.first_air_date?.substring(0,4)}`} 
+                  {data?.episode_run_time.length>0 && '\xa0·'}
+                  {data?.episode_run_time.length>0 && data?.episode_run_time.map((item,index)=>item>60 ? `\xa0${Math.trunc(item/60)}h \xa0${item%60}min
+                  ${index!==(data?.episode_run_time.length -1)?',\xa0':''}`
+                  :`\xa0${item}min${index!==(data?.episode_run_time.length -1)?',\xa0':''}` )}
                   </p>:null}
                 </div>
                   {data?.number_of_seasons && data?.number_of_episodes && <p className="flex flex-row">
@@ -56,13 +59,14 @@ const Title = (data) => {
                   <p className='hover:font-bold hover:cursor-pointer'>&nbsp;{!data?.first_air_date && director}</p></Link>}
                   </div>
                   <div className="flex flex-row flex-wrap">{data?.first_air_date && <p>Created by:&nbsp;</p>} 
+                  {data?.created_by?.length ===0 && "\xa0-"}
                   {data?.first_air_date && data?.created_by.length>0 && data?.created_by.map((item,index)=><Link key={index}
                   href={`/name/${item.id}`} passHref><p className='hover:font-bold hover:cursor-pointer'>{item.name}
                   {index!==(data?.created_by.length -1)?',\xa0':null}</p></Link>)}
                   </div>
                 </div>
                 <div className="flex flex-col space-y-2">
-                  <div className="flex flex-row flex-wrap">{genres?.map((item,index)=><p key={index}>{item.name}
+                  <div className="flex flex-row flex-wrap">{genres?.map((item,index)=><p key={index}>{item.name ==="Talk"?"Talk Show":item.name}
                   {index!==(genres?.length -1)?',\xa0':null}</p>)}</div>
                     <div>Rating: {!data.vote_average?"-":`${data?.vote_average *10}%`}</div>
                     <div>{data.release_date && <p>Rated: {!rating?"-":rating}</p>}</div>

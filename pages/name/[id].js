@@ -30,15 +30,15 @@ const Name = ({ data, role }) => {
           <h1 className="text-2xl md:text-3xl lg:text-5xl">{data?.name}</h1>
           <div className="flex flex-col space-y-1">
             <p>
-              {role?.role?.includes('Soundtrack')
-                ? role?.role.replace('Soundtrack', 'Singer')
-                : role?.role?.includes('Sound Department')
-                ? role?.role.replace('Sound Department', 'Singer')
+              {role.role?.includes('Soundtrack')
+                ? role.role?.replace('Soundtrack', 'Singer')
+                : role.role?.includes('Sound Department')
+                ? role.role?.replace('Sound Department', 'Singer')
                 : role?.role}
             </p>
             <p>
-              {data?.birthday && `${data?.birthday?.substr(0, 4)} - `}
-              {data?.deathday && data?.deathday?.substr(0, 4)}
+              {data?.birthday && `${data.birthday?.substr(0, 4)} - `}
+              {data?.deathday && data.deathday?.substr(0, 4)}
             </p>
             <p>{data?.place_of_birth && `Born at ${data?.place_of_birth}`}</p>
           </div>

@@ -15,7 +15,7 @@ const Name = ({ data, role }) => {
   const [isShowImages, setIsShowImages] = useState(false);
   const [isShowInfo, setIsShowInfo] = useState(false);
   const [isShowFilmography, setIsShowFilmography] = useState(false);
-
+  console.log (data, role);
   return data.error || role.error || !data || data.success === false ? (
     <ErrorMessage />
   ) : (

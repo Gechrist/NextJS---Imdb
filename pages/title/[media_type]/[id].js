@@ -86,7 +86,7 @@ const Title = (data) => {
           <div className="flex flex-col">
             <div className="flex flex-row flex-wrap">
               {mainCast?.map((item, index) => (
-                <Link key={index} href={`/name/${item.id}`} passHref>
+                <Link key={index} href={`/name/${item.id}`} passHref legacyBehavior>
                   <p className="hover:font-bold hover:cursor-pointer">
                     {item.name}
                     {index !== mainCast?.length - 1 ? ',\xa0' : null}
@@ -99,7 +99,7 @@ const Title = (data) => {
               {data?.release_date && !director ? (
                 '\xa0-'
               ) : (
-                <Link href={`/name/${directorID}`} passHref>
+                <Link href={`/name/${directorID}`} passHref legacyBehavior>
                   <p className="hover:font-bold hover:cursor-pointer">
                     &nbsp;{!data?.first_air_date && director}
                   </p>
@@ -112,7 +112,7 @@ const Title = (data) => {
               {data?.first_air_date &&
                 data?.created_by.length > 0 &&
                 data?.created_by.map((item, index) => (
-                  <Link key={index} href={`/name/${item.id}`} passHref>
+                  <Link key={index} href={`/name/${item.id}`} passHref legacyBehavior>
                     <p className="hover:font-bold hover:cursor-pointer">
                       {item.name}
                       {index !== data?.created_by.length - 1 ? ',\xa0' : null}

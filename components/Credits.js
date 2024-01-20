@@ -20,10 +20,10 @@ const Credits = ({credits,type}) => {
             Crew Credits</button>}
             </div>
             {isActing && type === 'title' && credits?.cast.map((item,index)=>(<div key={index} className='flex flex-row items-center py-1
-             pl-1 flex-wrap'><Link href={`/name/${item.id}`} passHref><a className='p-2 hover:font-bold'>{item?.name}</a></Link>
+             pl-1 flex-wrap'><Link href={`/name/${item.id}`} passHref className='p-2 hover:font-bold'>{item?.name}</Link>
              {item?.character && `as\xa0${item.character}`}</div>))}
             {isCrew && type === 'title' && credits?.crew.map((item,index)=>(<div key={index} className='flex flex-row items-center py-1 
-            pl-1 flex-wrap'><Link href={`/name/${item.id}`} passHref><a className='hover:font-bold'>{item?.name}</a>
+            pl-1 flex-wrap'><Link href={`/name/${item.id}`} passHref className='hover:font-bold'>{item?.name}
             </Link> {item?.job && `\xa0- ${item.job}`}</div>))}
             {/* {name credits} */}
             <div className="flex flex-row">
@@ -36,13 +36,19 @@ const Credits = ({credits,type}) => {
             Crew Credits</button>}
             </div>
             {isActing && type === 'name' && credits?.cast.map((item,index)=>(<div key={index} className='flex flex-row items-center py-1
-             pl-1 flex-wrap'><Link href={`/title/${item.media_type}/${item.id}`} passHref><a className='hover:font-bold '>
-             {item?.title? item.title:item.name}</a></Link> {item?.character && `\xa0as ${item.character}`}</div>))}
+             pl-1 flex-wrap'><Link
+                href={`/title/${item.media_type}/${item.id}`}
+                passHref
+                className='hover:font-bold '>
+                {item?.title? item.title:item.name}</Link> {item?.character && `\xa0as ${item.character}`}</div>))}
             {isCrew && type === 'name' && credits?.crew.map((item,index)=>(<div key={index} className='flex flex-row items-center py-1 
-            pl-1 flex-wrap'><Link href={`/title/${item.media_type}/${item.id}`} passHref><a className='hover:font-bold'>
-            {item?.title? item.title:item.name}</a></Link> {item?.job && `\xa0- ${item.job}`}</div>))}
+            pl-1 flex-wrap'><Link
+                href={`/title/${item.media_type}/${item.id}`}
+                passHref
+                className='hover:font-bold'>
+                {item?.title? item.title:item.name}</Link> {item?.job && `\xa0- ${item.job}`}</div>))}
         </div>
-    )
+    );
 }
 
 export default Credits

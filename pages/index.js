@@ -69,7 +69,7 @@ const Home = ({ boxOffice, popMovies, popTVSeries, popActors }) => {
             {' '}
             {popMovies?.results.map((item, index) => (
               <div key={index} className="mx-1 py-4">
-                <Link href={`/title/movie/${item?.id}`} passHref>
+                <Link href={`/title/movie/${item?.id}`} passHref legacyBehavior>
                   <div className="flex flex-col h-auto hover:cursor-pointer hover:scale-105 transition-all duration-500 ease-in-out transform">
                     <div className="embla__slide relative border-2 rounded-t-lg justify-center flex border-yellow-300 flex-grow-0 h-80 flex-shrink-0 w-72">
                       <Poster path={item?.poster_path} />
@@ -95,7 +95,7 @@ const Home = ({ boxOffice, popMovies, popTVSeries, popActors }) => {
             {' '}
             {popTVSeries?.results.map((item, index) => (
               <div key={index} className="mx-1 py-4">
-                <Link href={`/title/tv/${item?.id}`} passHref>
+                <Link href={`/title/tv/${item?.id}`} passHref legacyBehavior>
                   <div
                     className="flex flex-col h-auto hover:cursor-pointer hover:scale-105 transition-all duration-500 ease-in-out 
               transform"
@@ -124,7 +124,7 @@ const Home = ({ boxOffice, popMovies, popTVSeries, popActors }) => {
             {' '}
             {popActors?.results.map((item, index) => (
               <div key={index} className="mx-1 py-4">
-                <Link href={`/name/${item?.id}`} passHref>
+                <Link href={`/name/${item?.id}`} passHref legacyBehavior>
                   <div
                     className="flex flex-col h-auto hover:cursor-pointer hover:scale-105 transition-all duration-500 ease-in-out 
               transform"

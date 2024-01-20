@@ -47,7 +47,7 @@ const Title = (data) => {
                 <p>
                   {documentary.length ? `TV` : `Movie`}
                   {data?.release_date &&
-                    `\xa0·\xa0${data?.release_date?.substring(0, 4)}`}
+                    `\xa0·\xa0${data.release_date?.substring(0, 4)}`}
                   {data?.runtime > 60 &&
                     `\xa0·\xa0${Math.trunc(data?.runtime / 60)}h`}
                   {data?.runtime
@@ -60,7 +60,7 @@ const Title = (data) => {
                 <p>
                   TV Series
                   {data?.first_air_date &&
-                    `\xa0·\xa0${data?.first_air_date?.substring(0, 4)}`}
+                    `\xa0·\xa0${data.first_air_date?.substring(0, 4)}`}
                   {data?.episode_run_time.length > 0 && '\xa0·'}
                   {data?.episode_run_time.length > 0 &&
                     data?.episode_run_time.map((item, index) =>
@@ -76,7 +76,7 @@ const Title = (data) => {
                 </p>
               ) : null}
             </div>
-            {data?.number_of_seasons && data?.number_of_episodes && (
+            {data.number_of_seasons && data?.number_of_episodes && (
               <p className="flex flex-row">
                 {data?.number_of_seasons} seasons,&nbsp;
                 {data?.number_of_episodes} episodes
@@ -108,7 +108,7 @@ const Title = (data) => {
             </div>
             <div className="flex flex-row flex-wrap">
               {data?.first_air_date && <p>Created by:&nbsp;</p>}
-              {data?.created_by?.length === 0 && '\xa0-'}
+              {data.created_by?.length === 0 && '\xa0-'}
               {data?.first_air_date &&
                 data?.created_by.length > 0 &&
                 data?.created_by.map((item, index) => (
@@ -185,7 +185,7 @@ const Title = (data) => {
       </nav>
       <div className="relative">
         {isShowVideo ? (
-          <Video videos={data?.videos?.results} />
+          <Video videos={data.videos?.results} />
         ) : isShowInfo ? (
           <Info info={data?.overview} />
         ) : isShowCast ? (

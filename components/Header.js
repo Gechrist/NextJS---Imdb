@@ -1,4 +1,4 @@
-import Image from "next/legacy/image";
+import Image from 'next/legacy/image';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Logo from '../assets/logo/imdb-logo.svg';
@@ -142,7 +142,7 @@ const Header = () => {
             </button>
             <button
               type="button"
-              className="absolute top-6"
+              className="absolute top-8"
               onClick={() => {
                 setIsMobileMenu('hidden');
                 setIsSearchInputOn(

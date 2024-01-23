@@ -3,13 +3,13 @@ import EmblaCarousel from '../components/Carousel';
 import Poster from '../components/Poster';
 import Layout from '../components/IndexLayout';
 import MetaTitle from '../components/MetaTitle';
-import Image from "next/legacy/image";
+import Image from 'next/legacy/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 const API_OPTIONS = process.env.NEXT_PUBLIC_TMDB_API_OPTIONS;
 
-const Home = ({ boxOffice, popMovies, popTVSeries, popActors }) => {
+const Home = ({ popMovies, popTVSeries, popActors }) => {
   const Router = useRouter();
 
   async function getLink(id) {
@@ -19,8 +19,8 @@ const Home = ({ boxOffice, popMovies, popTVSeries, popActors }) => {
   return (
     <div className="lg:ml-menu lg:w-main w-full flex flex-col pt-6 px-2 lg:px-10 overflow-y-auto">
       <MetaTitle title="" />
-      <section className="flex w-full flex-col space-y-4 xl:space-y-2">
-        <h1 className="text-2xl md:text-3xl 3xl:text-5xl pb-4" id="boxOffice">
+      {/* <section className="flex w-full flex-col space-y-4 xl:space-y-2"> */}
+      {/* <h1 className="text-2xl md:text-3xl 3xl:text-5xl pb-4" id="boxOffice">
           Box Office
         </h1>
         {!boxOffice.error ? (
@@ -58,8 +58,8 @@ const Home = ({ boxOffice, popMovies, popTVSeries, popActors }) => {
           </EmblaCarousel>
         ) : (
           <p>{boxOffice.error}</p>
-        )}
-      </section>
+        )} */}
+      {/* </section> */}
       <section className="flex w-full flex-col pt-24 mb-4 space-y-4 xl:space-y-2">
         <h1 className="text-2xl md:text-3xl 3xl:text-5xl" id="popMovies">
           Popular Movies
@@ -153,9 +153,9 @@ Home.getLayout = function getLayout(page) {
 };
 
 export async function getServerSideProps() {
-  let boxOffice = await getData('boxOffice');
-  if (boxOffice.error)
-    boxOffice.error = 'There is an error with displaying the Box Office';
+  // let boxOffice = await getData('boxOffice');
+  // if (boxOffice.error)
+  //   boxOffice.error = 'There is an error with displaying the Box Office';
   let popMovies = await getData('movie/popular', '', API_OPTIONS);
   if (popMovies.error)
     popMovies.error = 'There is an error with displaying Popular Movies';
@@ -165,7 +165,7 @@ export async function getServerSideProps() {
   let popActors = await getData('person/popular', '', API_OPTIONS);
   if (popActors.error)
     popActors.error = 'There is an error with displaying Popular Actors';
-  return { props: { boxOffice, popMovies, popTVSeries, popActors } };
+  return { props: { popMovies, popTVSeries, popActors } };
 }
 
 export default Home;

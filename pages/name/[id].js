@@ -130,6 +130,7 @@ Name.getLayout = function getLayout(page) {
 export async function getServerSideProps({ params }) {
   let data = await getData('person', `${params.id}`, API_OPTIONS);
   if (data.error) data.error = true;
+  return { props: { data } };
 }
 
 export default Name;

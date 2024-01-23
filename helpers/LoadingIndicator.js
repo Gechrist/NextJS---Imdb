@@ -1,7 +1,7 @@
 import React from 'react';
 import LoadingIcon from '../assets/logo/three-dots.svg'
 import {usePromiseTracker} from 'react-promise-tracker';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 
 
 const LoadingIndicator = (props) => {

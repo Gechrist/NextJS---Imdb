@@ -1,5 +1,5 @@
 import { React, useState } from 'react';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import ErrorMessage from '../../components/ErrorMessage';
 import Layout from '../../components/Layout';
 import Poster from '../../components/Poster';

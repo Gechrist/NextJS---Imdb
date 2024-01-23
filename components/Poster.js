@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from "next/legacy/image"
 const Poster = ({path}) => {
     return (
         <div className='block justify-end relative w-80 h-poster'><Image src={`https://image.tmdb.org/t/p/w1280${path}`} 

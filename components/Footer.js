@@ -1,6 +1,6 @@
 import React from 'react';
 import Tmdb from '../assets/logo/tmdb.svg'
-import Image from 'next/image'
+import Image from "next/legacy/image"
 
 
 const Footer = () => {

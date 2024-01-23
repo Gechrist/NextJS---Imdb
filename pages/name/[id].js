@@ -1,5 +1,5 @@
 import { React, useState } from 'react';
-import Image from "next/legacy/image";
+import Image from 'next/legacy/image';
 import ErrorMessage from '../../components/ErrorMessage';
 import Layout from '../../components/Layout';
 import Poster from '../../components/Poster';
@@ -16,7 +16,7 @@ const Name = ({ data, role }) => {
   const [isShowInfo, setIsShowInfo] = useState(false);
   const [isShowFilmography, setIsShowFilmography] = useState(false);
 
-  return data.error || role.error || !data || data.success === false ? (
+  return data.error || !data || data.success === false ? (
     <ErrorMessage />
   ) : (
     <main className="lg:ml-menu lg:w-main w-full flex flex-col pt-6 px-2 lg:px-10">

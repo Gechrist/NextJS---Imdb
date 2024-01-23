@@ -11,7 +11,7 @@ import getData from '../../helpers/ApiQueries';
 
 const API_OPTIONS = process.env.NEXT_PUBLIC_TMDB_API_OPTIONS;
 
-const Name = ({ data, role }) => {
+const Name = ({ data }) => {
   const [isShowImages, setIsShowImages] = useState(false);
   const [isShowInfo, setIsShowInfo] = useState(false);
   const [isShowFilmography, setIsShowFilmography] = useState(false);
@@ -29,21 +29,12 @@ const Name = ({ data, role }) => {
         <section className="flex w-full flex-col space-y-8">
           <h1 className="text-2xl md:text-3xl lg:text-5xl">{data?.name}</h1>
           <div className="flex flex-col space-y-1">
-            <p>
-              {role.role?.includes('Soundtrack')
-                ? role.role?.replace('Soundtrack', 'Singer')
-                : role.role?.includes('Sound Department')
-                ? role.role?.replace('Sound Department', 'Singer')
-                : role?.role}
-            </p>
+            <p>{data.known_for_department}</p>
             <p>
               {data?.birthday && `${data.birthday?.substr(0, 4)} - `}
               {data?.deathday && data.deathday?.substr(0, 4)}
             </p>
             <p>{data?.place_of_birth && `Born at ${data?.place_of_birth}`}</p>
-          </div>
-          <div className="flex flex-col">
-            <p>{role?.awards}</p>
           </div>
         </section>
         <Poster path={data?.profile_path} />
@@ -139,9 +130,6 @@ Name.getLayout = function getLayout(page) {
 export async function getServerSideProps({ params }) {
   let data = await getData('person', `${params.id}`, API_OPTIONS);
   if (data.error) data.error = true;
-  let role = await getData('Name', `${data.imdb_id}`);
-  if (role.error) role.error = true;
-  return { props: { data, role } };
 }
 
 export default Name;

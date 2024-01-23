@@ -19,47 +19,6 @@ const Home = ({ popMovies, popTVSeries, popActors }) => {
   return (
     <div className="lg:ml-menu lg:w-main w-full flex flex-col pt-6 px-2 lg:px-10 overflow-y-auto">
       <MetaTitle title="" />
-      {/* <section className="flex w-full flex-col space-y-4 xl:space-y-2"> */}
-      {/* <h1 className="text-2xl md:text-3xl 3xl:text-5xl pb-4" id="boxOffice">
-          Box Office
-        </h1>
-        {!boxOffice.error ? (
-          <EmblaCarousel
-            haveAutoplay={true}
-            direction="flex-col h-72 divide-y-2 divide-y-white"
-            position=""
-          >
-            {' '}
-            {boxOffice?.items.map((item, index) => (
-              <div
-                key={index}
-                onClick={() => getLink(item.id)}
-                className="flex flex-row justify-evenly items-center hover:cursor-pointer"
-              >
-                <div className="flex justify-center w-1/3">
-                  <p className="rounded-full w-12 h-12 flex items-center justify-center ring-2 ring-white text-xl">
-                    {item?.rank}
-                  </p>
-                </div>
-                <div className="text-xl flex justify-center w-1/3">
-                  {item?.title}
-                </div>
-                <div className="embla__slide w-1/3 flex justify-center relative flex-grow-0 flex-shrink-0">
-                  <Image
-                    src={item.image}
-                    width={100}
-                    height={150}
-                    alt="Image not found"
-                    aria-label="Various Images Carousel"
-                  />
-                </div>
-              </div>
-            ))}
-          </EmblaCarousel>
-        ) : (
-          <p>{boxOffice.error}</p>
-        )} */}
-      {/* </section> */}
       <section className="flex w-full flex-col pt-24 mb-4 space-y-4 xl:space-y-2">
         <h1 className="text-2xl md:text-3xl 3xl:text-5xl" id="popMovies">
           Popular Movies
@@ -153,9 +112,6 @@ Home.getLayout = function getLayout(page) {
 };
 
 export async function getServerSideProps() {
-  // let boxOffice = await getData('boxOffice');
-  // if (boxOffice.error)
-  //   boxOffice.error = 'There is an error with displaying the Box Office';
   let popMovies = await getData('movie/popular', '', API_OPTIONS);
   if (popMovies.error)
     popMovies.error = 'There is an error with displaying Popular Movies';

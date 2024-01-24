@@ -142,7 +142,7 @@ const Header = () => {
             </button>
             <button
               type="button"
-              className="absolute top-8"
+              className="absolute top-6 lg:top-8"
               onClick={() => {
                 setIsMobileMenu('hidden');
                 setIsSearchInputOn(

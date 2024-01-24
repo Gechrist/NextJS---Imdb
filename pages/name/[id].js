@@ -29,7 +29,7 @@ const Name = ({ data }) => {
         <section className="flex w-full flex-col space-y-8">
           <h1 className="text-2xl md:text-3xl lg:text-5xl">{data?.name}</h1>
           <div className="flex flex-col space-y-1">
-            <p>{data.known_for_department}</p>
+            <p>Known for: {data.known_for_department}</p>
             <p>
               {data?.birthday && `${data.birthday?.substr(0, 4)} - `}
               {data?.deathday && data.deathday?.substr(0, 4)}

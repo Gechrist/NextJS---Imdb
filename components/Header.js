@@ -86,12 +86,12 @@ const Header = () => {
             >
               CLOSE X
             </button>
-            <Link
+            {/* <Link
               href="/#boxOffice"
               className="text-black xs:border-b xs:border-black xs:border-opacity-20 hover:font-bold"
             >
               Box Office
-            </Link>
+            </Link> */}
             <Link
               href="/#popMovies"
               className="text-black xs:border-b xs:border-black xs:border-opacity-20 hover:font-bold
